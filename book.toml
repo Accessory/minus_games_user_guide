@@ -1,0 +1,9 @@
+[book]
+authors = ["Accessory"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Minus Games User Guide"
+
+[build]
+build-dir =  "../target/book"
