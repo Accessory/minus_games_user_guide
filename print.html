@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Minus Games User Guide</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Minus Games User Guide</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="minus-games"><a class="header" href="#minus-games">Minus Games</a></h1>
+<p>Minus Games is a Suite to Distribute Games from a server to a client. It consists of the 5 applications:</p>
+<ul>
+<li><a href="./minus_games_server/minus_games_server.html">Minus Games Server</a></li>
+<li><a href="./minus_games_client/minus_games_client.html">Minus Games Client</a></li>
+<li><a href="./minus_games_gui/minus_games_gui.html">Minus Games Gui</a></li>
+<li><a href="./minus_games_finder/minus_games_finder.html">Minus Games Finder</a></li>
+<li><a href="./minus_games_updater/minus_games_updater.html">Minus Games Updater</a></li>
+</ul>
+<p>To get everything up and running see the <a href="quick_start/quick_start.html">Quick Start Guide</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
+<h2 id="step-1-set-up-the-server"><a class="header" href="#step-1-set-up-the-server">Step 1: Set up the server</a></h2>
+<h3 id="setup"><a class="header" href="#setup">Setup</a></h3>
+<p>For a quick and easy installation, it is recommended to have the <code>minus_games_server</code> executable, the data, and the games folder in one directory.</p>
+<p>The server can be configured by command line args or by a <strong>.env</strong> file.
+An example <strong>.env</strong> file can look like this:</p>
+<pre><code># default ip is 127.0.0.1 
+# IP=0.0.0.0 
+# default port is 8415
+# PORT=8415
+DATA_FOLDER=data
+GAMES_FOLDER=games
+</code></pre>
+<p>This would result in an initial layout like this.</p>
+<pre><code>.
+├── minus_games_server      # Main executable
+├── .env                    # Server configuration file
+├── games                   # Documentation files (alternatively `doc`)
+    ├── Game 1              # Every game has its own folder
+    ├── Game 2              
+    ├── ...               
+├── data                    # Folder for the games metadata (created by the finder or the server)
+├── users                   # Folder for the user configuration
+</code></pre>
+<p>After setting up the games and the config, you can simply run the server with <code>./minus_games_server</code> (or <code>.\minus_games_server.exe</code> under Windows).</p>
+<p>This will run the server and expose the OpenAPI and the Swagger UI under <code>http://[your-server]:[your-port]/swagger-ui</code> -&gt; defaults to <code>http://localhost:8415/swagger-ui</code>.</p>
+<h3 id="add-game"><a class="header" href="#add-game">Add Game</a></h3>
+<p>To add a game copy the main folder of the game into the games folder. After that you can visit the swagger-ui and the run the finder/rerun-finder endpoint. Alternatively you can use the minus_games_finder to create the needed metadata.</p>
+<h2 id="step-2-set-up-the-client"><a class="header" href="#step-2-set-up-the-client">Step 2: Set up the client</a></h2>
+<p>The client can be set up in the nealy the same way as the server. The easiest way to configure the client is by adding a <strong>.env</strong> file.</p>
+<p>Example <strong>.env</strong> file:</p>
+<pre><code># When running under linux a wine be used and set up by setting the WINE_EXE and WINE_PREFIX environment variable.
+# WINE_EXE=wine
+# WINE_PREFIX=$WINEPREFIX
+# The server url defaults to localhost if not specified
+# SERVER_URL="http://localhost:8415"
+CLIENT_GAMES_FOLDER=client_games
+CLIENT_FOLDER=client_data
+</code></pre>
+<p>This setup will result in a client folder layout like this:</p>
+<pre><code>.
+├── minus_games_client      # Main executable
+├── .env                    # Client configuration file
+├── client_games            # Documentation files (alternatively `doc`)
+    ├── Game 1              # Every game has its own folder
+    ├── Game 2              
+    ├── ...               
+├── client_data             # Folder for the games metadata (created by the finder or the server)
+</code></pre>
+<p>To run the client make sure the server is running and that the server points at the server. The client can run downloaded games offline, but it will not be possible to sync saves or download games.</p>
+<p>Now run the client with:</p>
+<pre><code>./minus_games_client menu
+
+# Or under windows
+#.\minus_games_client.exe menu
+</code></pre>
+<p>After that a menu should apper and you have the following options:</p>
+<pre><code>? Select a action: ›
+❯ Sync &amp; Start
+Start
+Download
+Delete
+Repair
+Upload Saves
+Download Saves
+Quit
+</code></pre>
+<p>To Download a game run and sync it just select the first option. The client will lookup the games that are already installed and the games that are available on the server. Now you can select a game from a that list and run it.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-server"><a class="header" href="#minus-games-server">Minus Games Server</a></h1>
+<h2 id="configuration-options"><a class="header" href="#configuration-options">Configuration Options</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
+<tr><td><strong>ip</strong></td><td>The IP address to bind to.</td><td><code>127.0.0.1</code></td><td><code>IP</code></td><td><code>--ip</code></td></tr>
+<tr><td><strong>port</strong></td><td>The port number to listen on.</td><td><code>8415</code></td><td><code>PORT</code></td><td><code>--port</code></td></tr>
+<tr><td><strong>games_folder</strong></td><td>The folder where games are stored.</td><td>Current directory</td><td><code>GAMES_FOLDER</code></td><td><code>--games-folder</code></td></tr>
+<tr><td><strong>data_folder</strong></td><td>The folder where data is stored.</td><td>Data folder</td><td><code>DATA_FOLDER</code></td><td><code>--data-folder</code></td></tr>
+<tr><td><strong>cache_folder</strong></td><td>The folder where cache is stored (optional).</td><td>None</td><td><code>CACHE_FOLDER</code></td><td><code>--cache-folder</code></td></tr>
+<tr><td><strong>config_file</strong></td><td>The configuration file to use (optional).</td><td>None</td><td>None</td><td><code>--config-file</code></td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-client"><a class="header" href="#minus-games-client">Minus Games Client</a></h1>
+<h2 id="configuration-options-1"><a class="header" href="#configuration-options-1">Configuration Options</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
+<tr><td><strong>server_url</strong></td><td>The URL of the server.</td><td><code>http://127.0.0.1:8415</code></td><td><code>SERVER_URL</code></td><td><code>--server-url</code></td></tr>
+<tr><td><strong>client_folder</strong></td><td>The folder where client data is stored.</td><td>Client folder</td><td><code>CLIENT_FOLDER</code></td><td><code>--client-folder</code></td></tr>
+<tr><td><strong>wine_exe</strong></td><td>The path to the Wine executable (optional).</td><td>None</td><td><code>WINE_EXE</code></td><td><code>--wine-exe</code></td></tr>
+<tr><td><strong>wine_prefix</strong></td><td>The path to the Wine prefix (optional).</td><td>None</td><td><code>WINE_PREFIX</code></td><td><code>--wine-prefix</code></td></tr>
+<tr><td><strong>verbose</strong></td><td>Enable verbose output.</td><td><code>false</code></td><td><code>VERBOSE</code></td><td><code>-v</code> or <code>--verbose</code></td></tr>
+<tr><td><strong>offline</strong></td><td>Run in offline mode.</td><td><code>false</code></td><td><code>OFFLINE</code></td><td><code>-o</code> or <code>--offline</code></td></tr>
+<tr><td><strong>client_games_folder</strong></td><td>The folder where client games are stored.</td><td>Current directory</td><td><code>CLIENT_GAMES_FOLDER</code></td><td><code>--client-games-folder</code></td></tr>
+<tr><td><strong>username</strong></td><td>The username for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_USERNAME</code></td><td><code>--username</code></td></tr>
+<tr><td><strong>password</strong></td><td>The password for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_PASSWORD</code></td><td><code>--password</code></td></tr>
+<tr><td><strong>action</strong></td><td>The action to perform.</td><td>None</td><td>None</td><td>Subcommands like <code>list</code>, <code>download</code>, <code>sync</code>, etc.</td></tr>
+</tbody></table>
+</div>
+<h3 id="actions"><a class="header" href="#actions">Actions</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Action</th><th>Description</th><th>Command Line Argument</th><th>Additional Value Needed</th></tr></thead><tbody>
+<tr><td><strong>List</strong></td><td>Lists all available games.</td><td><code>list</code></td><td>None</td></tr>
+<tr><td><strong>ListJson</strong></td><td>Lists all available games in JSON format.</td><td><code>list-json</code></td><td>None</td></tr>
+<tr><td><strong>Download</strong></td><td>Downloads the specified game.</td><td><code>download</code></td><td><code>game</code></td></tr>
+<tr><td><strong>Sync</strong></td><td>Synchronizes information for all games.</td><td><code>sync</code></td><td>None</td></tr>
+<tr><td><strong>SelectDownload</strong></td><td>Prompts the user to select a game to download.</td><td><code>select-download</code></td><td>None</td></tr>
+<tr><td><strong>RunGame</strong></td><td>Runs the specified game.</td><td><code>run-game</code></td><td><code>game</code></td></tr>
+<tr><td><strong>RunGameSynced</strong></td><td>Runs the specified game with synchronization.</td><td><code>run-game-synced</code></td><td><code>game</code></td></tr>
+<tr><td><strong>SyncRunGame</strong></td><td>Synchronizes and runs the specified game.</td><td><code>sync-run-game</code></td><td><code>game</code></td></tr>
+<tr><td><strong>SelectGame</strong></td><td>Prompts the user to select a game.</td><td><code>select-game</code></td><td>None</td></tr>
+<tr><td><strong>DeleteGame</strong></td><td>Deletes the specified game, optionally purging it.</td><td><code>delete-game</code></td><td><code>game</code>, <code>purge</code></td></tr>
+<tr><td><strong>SelectDeleteGame</strong></td><td>Prompts the user to select a game to delete, optionally purging it.</td><td><code>select-delete-game</code></td><td><code>purge</code></td></tr>
+<tr><td><strong>Menu</strong></td><td>Displays the main menu.</td><td><code>menu</code></td><td>None</td></tr>
+<tr><td><strong>Repair</strong></td><td>Repairs the specified game.</td><td><code>repair</code></td><td><code>game</code></td></tr>
+<tr><td><strong>SelectRepair</strong></td><td>Prompts the user to select a game to repair.</td><td><code>select-repair</code></td><td>None</td></tr>
+<tr><td><strong>DownloadSyncs</strong></td><td>Downloads synchronization data for all games.</td><td><code>download-syncs</code></td><td>None</td></tr>
+<tr><td><strong>DownloadSync</strong></td><td>Downloads synchronization data for the specified game.</td><td><code>download-sync</code></td><td><code>game</code></td></tr>
+<tr><td><strong>UploadSyncs</strong></td><td>Uploads synchronization data for all games.</td><td><code>upload-syncs</code></td><td>None</td></tr>
+<tr><td><strong>ScanForGames</strong></td><td>Scans for installed games.</td><td><code>scan-for-games</code></td><td>None</td></tr>
+<tr><td><strong>SelectGameToPlay</strong></td><td>Prompts the user to select a game to play (only on Unix systems).</td><td><code>select-game-to-play</code></td><td>None</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-gui"><a class="header" href="#minus-games-gui">Minus Games Gui</a></h1>
+<h2 id="configuration-options-2"><a class="header" href="#configuration-options-2">Configuration Options</a></h2>
+<p>The <strong>Minus Games Gui</strong> uses the same options as the <strong>Minus Games Client</strong> and
+if the mode is set to <strong>Cli</strong> the Gui will behave like the client.</p>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
+<tr><td><strong>fullscreen</strong></td><td>Whether to run in fullscreen mode.</td><td><code>false</code></td><td><code>MINUS_GAMES_GUI_FULLSCREEN</code></td><td><code>--fullscreen</code></td></tr>
+<tr><td><strong>mode</strong></td><td>The mode to run the GUI in.</td><td><code>Gui</code></td><td><code>MINUS_GAMES_GUI_MODE</code></td><td><code>--mode</code></td></tr>
+<tr><td><strong>theme</strong></td><td>The theme of the GUI.</td><td><code>Light</code></td><td><code>MINUS_GAMES_GUI_THEME</code></td><td><code>--theme</code></td></tr>
+<tr><td><strong>server_url</strong></td><td>The URL of the server.</td><td><code>http://127.0.0.1:8415</code></td><td><code>SERVER_URL</code></td><td><code>--server-url</code></td></tr>
+<tr><td><strong>client_folder</strong></td><td>The folder where client data is stored.</td><td>Client folder</td><td><code>CLIENT_FOLDER</code></td><td><code>--client-folder</code></td></tr>
+<tr><td><strong>wine_exe</strong></td><td>The path to the Wine executable (optional).</td><td>None</td><td><code>WINE_EXE</code></td><td><code>--wine-exe</code></td></tr>
+<tr><td><strong>wine_prefix</strong></td><td>The path to the Wine prefix (optional).</td><td>None</td><td><code>WINE_PREFIX</code></td><td><code>--wine-prefix</code></td></tr>
+<tr><td><strong>verbose</strong></td><td>Enable verbose output.</td><td><code>false</code></td><td><code>VERBOSE</code></td><td><code>-v</code> or <code>--verbose</code></td></tr>
+<tr><td><strong>offline</strong></td><td>Run in offline mode.</td><td><code>false</code></td><td><code>OFFLINE</code></td><td><code>-o</code> or <code>--offline</code></td></tr>
+<tr><td><strong>client_games_folder</strong></td><td>The folder where client games are stored.</td><td>Current directory</td><td><code>CLIENT_GAMES_FOLDER</code></td><td><code>--client-games-folder</code></td></tr>
+<tr><td><strong>username</strong></td><td>The username for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_USERNAME</code></td><td><code>--username</code></td></tr>
+<tr><td><strong>password</strong></td><td>The password for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_PASSWORD</code></td><td><code>--password</code></td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-finder"><a class="header" href="#minus-games-finder">Minus Games Finder</a></h1>
+<h2 id="configuration-options-3"><a class="header" href="#configuration-options-3">Configuration Options</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
+<tr><td><strong>games_folder</strong></td><td>The folder where games are stored.</td><td>Current directory</td><td><code>GAMES_FOLDER</code></td><td><code>--games-folder</code></td></tr>
+<tr><td><strong>data_folder</strong></td><td>The folder where data is stored.</td><td>Data folder</td><td><code>DATA_FOLDER</code></td><td><code>--data-folder</code></td></tr>
+<tr><td><strong>cache_folder</strong></td><td>The folder where cache data is stored (optional).</td><td>None</td><td><code>CACHE_FOLDER</code></td><td><code>--cache-folder</code></td></tr>
+<tr><td><strong>keep_existing_configs</strong></td><td>Whether to keep existing configurations.</td><td><code>true</code></td><td><code>KEEP_EXISTING_CONFIGS</code></td><td><code>--keep-existing-configs</code></td></tr>
+<tr><td><strong>cleanup_data_folder</strong></td><td>Whether to clean up the data folder.</td><td><code>false</code></td><td><code>CLEANUP_DATA_FOLDER</code></td><td><code>--cleanup-data-folder</code></td></tr>
+<tr><td><strong>filter</strong></td><td>A filter to apply (optional).</td><td>None</td><td><code>FILTER</code></td><td><code>--filter</code></td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-updater"><a class="header" href="#minus-games-updater">Minus Games Updater</a></h1>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
+<tr><td><strong>server_url</strong></td><td>The URL of the server.</td><td>None</td><td><code>SERVER_URL</code></td><td><code>--server-url</code></td></tr>
+<tr><td><strong>to</strong></td><td>The path to update the client to.</td><td>None</td><td><code>TO</code></td><td><code>--to</code></td></tr>
+<tr><td><strong>for_os</strong></td><td>The operating system for the update.</td><td>Currently Running OS</td><td><code>FOR_OS</code></td><td><code>--for-os</code></td></tr>
+<tr><td><strong>username</strong></td><td>The username for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_USERNAME</code></td><td><code>--username</code></td></tr>
+<tr><td><strong>password</strong></td><td>The password for authentication (optional).</td><td>None</td><td><code>MINUS_GAMES_PASSWORD</code></td><td><code>--password</code></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
