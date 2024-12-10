@@ -6,4 +6,4 @@ src = "src"
 title = "Minus Games User Guide"
 
 [build]
-build-dir =  "../target/book"
+build-dir =  "docs"

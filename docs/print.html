@@ -164,7 +164,7 @@
 </ul>
 <p>To get everything up and running see the <a href="quick_start/quick_start.html">Quick Start Guide</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
-<h2 id="step-1-set-up-the-server"><a class="header" href="#step-1-set-up-the-server">Step 1: Set up the server</a></h2>
+<h2 id="step-1-set-up-the-minus-games-server"><a class="header" href="#step-1-set-up-the-minus-games-server">Step 1: Set up the Minus Games Server</a></h2>
 <h3 id="setup"><a class="header" href="#setup">Setup</a></h3>
 <p>For a quick and easy installation, it is recommended to have the <code>minus_games_server</code> executable, the data, and the games folder in one directory.</p>
 <p>The server can be configured by command line args or by a <strong>.env</strong> file.
@@ -190,19 +190,28 @@ GAMES_FOLDER=games
 <p>After setting up the games and the config, you can simply run the server with <code>./minus_games_server</code> (or <code>.\minus_games_server.exe</code> under Windows).</p>
 <p>This will run the server and expose the OpenAPI and the Swagger UI under <code>http://[your-server]:[your-port]/swagger-ui</code> -&gt; defaults to <code>http://localhost:8415/swagger-ui</code>.</p>
 <h3 id="add-game"><a class="header" href="#add-game">Add Game</a></h3>
-<p>To add a game copy the main folder of the game into the games folder. After that you can visit the swagger-ui and the run the finder/rerun-finder endpoint. Alternatively you can use the minus_games_finder to create the needed metadata.</p>
-<h2 id="step-2-set-up-the-client"><a class="header" href="#step-2-set-up-the-client">Step 2: Set up the client</a></h2>
-<p>The client can be set up in the nealy the same way as the server. The easiest way to configure the client is by adding a <strong>.env</strong> file.</p>
+<p>To add a game, copy the main folder of the game into the games folder.
+After that, you can visit the swagger-ui and run the finder/rerun-finder endpoint.
+Alternatively, you can use the minus_games_finder to create the needed metadata.</p>
+<h2 id="step-2-set-up-the-minus-games-gui"><a class="header" href="#step-2-set-up-the-minus-games-gui">Step 2: Set up the Minus Games Gui</a></h2>
+<p>The GUI can be set up in nearly the same way as the server.
+The easiest way to configure the GUI is by adding a .env file.
+It is also possible to configure everything within the GUI under Settings.</p>
 <p>Example <strong>.env</strong> file:</p>
 <pre><code># When running under linux a wine be used and set up by setting the WINE_EXE and WINE_PREFIX environment variable.
-# WINE_EXE=wine
-# WINE_PREFIX=$WINEPREFIX
 # The server url defaults to localhost if not specified
 # SERVER_URL="http://localhost:8415"
 CLIENT_GAMES_FOLDER=client_games
 CLIENT_FOLDER=client_data
 </code></pre>
-<p>This setup will result in a client folder layout like this:</p>
+<p>The order in witch the configuration is applied is:</p>
+<ol>
+<li>Command line args</li>
+<li>.env file</li>
+<li>Config File</li>
+</ol>
+<p>Higher priority settings will overwrite lower priority settings.</p>
+<p>This setup will result in a GUI folder layout like this:</p>
 <pre><code>.
 ├── minus_games_client      # Main executable
 ├── .env                    # Client configuration file
@@ -212,25 +221,17 @@ CLIENT_FOLDER=client_data
     ├── ...               
 ├── client_data             # Folder for the games metadata (created by the finder or the server)
 </code></pre>
-<p>To run the client make sure the server is running and that the server points at the server. The client can run downloaded games offline, but it will not be possible to sync saves or download games.</p>
-<p>Now run the client with:</p>
-<pre><code>./minus_games_client menu
+<p>To run the GUI, make sure the server is running and that the server points at the server.
+The GUI can run downloaded games offline, but it will not be possible to sync saves or download games.</p>
+<p>Now run the GUI with:</p>
+<pre><code>./minus_games_gui
 
 # Or under windows
-#.\minus_games_client.exe menu
+#.\minus_games_gui.exe
 </code></pre>
-<p>After that a menu should apper and you have the following options:</p>
-<pre><code>? Select a action: ›
-❯ Sync &amp; Start
-Start
-Download
-Delete
-Repair
-Upload Saves
-Download Saves
-Quit
-</code></pre>
-<p>To Download a game run and sync it just select the first option. The client will lookup the games that are already installed and the games that are available on the server. Now you can select a game from a that list and run it.</p>
+<p>To Download a game run and sync it just select the first option.
+The Gui will lookup the games that are already installed and the games that are available on the server.
+Now you can select a game from a that list and run it.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="minus-games-server"><a class="header" href="#minus-games-server">Minus Games Server</a></h1>
 <h2 id="configuration-options"><a class="header" href="#configuration-options">Configuration Options</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Option</th><th>Description</th><th>Default</th><th>Environment Variable</th><th>Command Line Argument</th></tr></thead><tbody>
