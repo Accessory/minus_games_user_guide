@@ -163,6 +163,24 @@
 <li><a href="./minus_games_updater/minus_games_updater.html">Minus Games Updater</a></li>
 </ul>
 <p>To get everything up and running see the <a href="quick_start/quick_start.html">Quick Start Guide</a></p>
+<h2 id="faq"><a class="header" href="#faq">FAQ</a></h2>
+<h3 id="what-is-the-main-use-case"><a class="header" href="#what-is-the-main-use-case">What is the main use case?</a></h3>
+<p>The main use case is to distribute games and save files from the server to the clients
+in a home server environment.</p>
+<h3 id="what-is-the-main-advantage-of-minus-games"><a class="header" href="#what-is-the-main-advantage-of-minus-games">What is the main advantage of Minus Games?</a></h3>
+<p>Minus Games does not just keep the game files in sync with the server,
+it is also capable to sync save files.</p>
+<h3 id="what-was-the-main-motivation-to-create-minus-games"><a class="header" href="#what-was-the-main-motivation-to-create-minus-games">What was the main motivation to create Minus Games?</a></h3>
+<p>I wanted a way to sync save games between my Steamdeck and my Desktop PC
+for games that are not managed by Steam or other game launchers.</p>
+<h3 id="what-is-the-main-way-to-use-the-minus-games"><a class="header" href="#what-is-the-main-way-to-use-the-minus-games">What is the main way to use the Minus Games?</a></h3>
+<p>The main way is to start configure the server and put the games in the designated game folder.
+After that, let the server search for new files by calling the <code>/finder/rerun-finder</code> endpoint.</p>
+<p>The server will scan for new games and make them available for the client.
+The client now can download the games and run them.</p>
+<p>If the game has a known engine like Unity. It will check for save files.
+The sync of the save files is done by the client. For a full Quick Start see the
+<a href="quick_start/quick_start.html">Quick Start Guide</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>
 <h2 id="step-1-set-up-the-minus-games-server"><a class="header" href="#step-1-set-up-the-minus-games-server">Step 1: Set up the Minus Games Server</a></h2>
 <h3 id="setup"><a class="header" href="#setup">Setup</a></h3>
