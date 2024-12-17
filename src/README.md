@@ -9,6 +9,8 @@ Minus Games is a Suite to Distribute Games from a server to a client. It consist
 
 To get everything up and running see the [Quick Start Guide](quick_start/quick_start.md)
 
+The Project can be found on [GitHub](https://github.com/Accessory/minus_games)
+
 ## FAQ
 ### What is the main use case?
 The main use case is to distribute games and save files from the server to the clients
